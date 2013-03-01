@@ -1,6 +1,10 @@
 #! /usr/bin/lua
 
 -- Computation using physical quantities
+-- Type-safe computation using physical quantities
+-- Can add and subtract identical quantities
+-- Can multiply and divide quantities, giving a different quantity
+--   eg. length/time --> speed
 
 -- References:
 -- * http://en.wikipedia.org/wiki/International_System_of_Units
