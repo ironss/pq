@@ -95,8 +95,21 @@ local mass = function(value, symbol)
 end
 
 
+
 M.length = length
 M.mass = mass
+
+local new = function(value, symbol)
+   local unit = units[symbol]
+   if unit == nil then
+      error('Unknown unit ' .. symbol)
+   end
+
+   local quantity = unit.quantity
+   return M[quantity](value, symbol)   
+end
+
+M.new = new
 
 return M
 

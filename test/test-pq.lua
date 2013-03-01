@@ -37,6 +37,24 @@ function Test_base_quantities:test_can_create_mass_with_implied_unit()
 end
 
 
+
+function Test_base_quantities:test_can_create_length_with_unit()
+   local l1 = pq.new(22, 'm')
+   assert_equals(l1.value, 22)
+   assert_equals(l1.quantity, 'length')
+   assert_equals(l1.unit.name, 'metre')
+   assert_equals(l1.unit.symbol, 'm')
+end
+
+function Test_base_quantities:test_can_create_mass_with_unit()
+   local l1 = pq.new(26, 'kg')
+   assert_equals(l1.value, 26)
+   assert_equals(l1.quantity, 'mass')
+   assert_equals(l1.unit.name, 'kilogram')
+   assert_equals(l1.unit.symbol, 'kg')
+end
+
+
 --[[
 function Test_base_quantities:test_can_create_quantity_with_explicit_unit()
    local l1 = pq.length(2000, 'mm')
