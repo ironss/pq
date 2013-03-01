@@ -63,41 +63,13 @@ local units =
    ['kg'] = { name='kilogram', symbol='kg', quantity='mass'   },
 }
 
-
-local length = function(value, symbol)
-   local unit_symbol = symbol or 'm'
-   local unit = units[unit_symbol]
-   if unit == nil then
-      error('Unknown unit ' .. symbol)
-   end
-   
-   local value = { value=value, quantity='length', unit=unit }
-   if unit.quantity ~= value.quantity then
-      error(symbol .. ' is not a valid unit for ' .. quantity)
-   end
-      
-   return value
-end
-
-local mass = function(value, symbol)
-   local unit_symbol = symbol or 'kg'
-   local unit = units[unit_symbol]
-   if unit == nil then
-      error('Unknown unit ' .. symbol)
-   end
-   
-   local value = { value=value, quantity='mass', unit=unit }
-   if unit.quantity ~= value.quantity then
-      error(symbol .. ' is not a valid unit for ' .. quantity)
-   end
-      
-   return value
-end
+local quantities = 
+{
+   ['length'] = { name='length', preferred_unit='m' , symbol='L' },
+   ['mass'  ] = { name='mass'  , preferred_unit='kg', symbol='M' },
+}
 
 
-
-M.length = length
-M.mass = mass
 
 local new = function(value, symbol)
    local unit = units[symbol]
@@ -105,8 +77,28 @@ local new = function(value, symbol)
       error('Unknown unit ' .. symbol)
    end
 
-   local quantity = unit.quantity
-   return M[quantity](value, symbol)   
+   local quantity = quantities[unit.quantity]
+   local value = { value=value, quantity=unit.quantity, unit=unit }
+
+   return value
+end
+
+
+for n, q in pairs(quantities) do
+   local f = function(value, symbol)
+      local unit_symbol = symbol or q.preferred_unit
+      local unit = units[unit_symbol]
+      if unit == nil then
+         error('Unknown unit ' .. symbol)
+      end
+      
+      local value = { value=value, quantity=q.name, unit=unit }
+      if unit.quantity ~= value.quantity then
+         error(symbol .. ' is not a valid unit for ' .. q.name)
+      end
+      return value
+   end
+   M[q.name] = f
 end
 
 M.new = new
