@@ -57,8 +57,18 @@ local non_si_units =
 }
 --]]
 
-local length = function(value)
-   local unit = { name='metre', symbol='m' }
+local units = 
+{
+   ['m'] = { name='metre', symbol='m' },
+}
+
+local length = function(value, symbol)
+   local unit_symbol = symbol or 'm'
+   local unit = units[unit_symbol]
+   if unit == nil then
+      error('Unknown unit ' .. symbol)
+   end
+   
    local value = { value=value, quantity='length', unit=unit }
    return value
 end
