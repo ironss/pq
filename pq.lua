@@ -1,5 +1,10 @@
 #! /usr/bin/lua
 
+-- Computation using physical quantities
+
+-- References:
+-- * http://en.wikipedia.org/wiki/International_System_of_Units
+
 local M = {}
 
 --[[
@@ -59,14 +64,16 @@ local non_si_units =
 
 local units = 
 {
-   ['m'] =  { name='metre'   , symbol='m' , quantity='length' },
+   ['m']  = { name='metre'   , symbol='m' , quantity='length' },
    ['kg'] = { name='kilogram', symbol='kg', quantity='mass'   },
+   ['s']  = { name='second'  , symbol='s',  quantity='time'   },
 }
 
 local quantities = 
 {
    ['length'] = { name='length', preferred_unit='m' , symbol='L' },
    ['mass'  ] = { name='mass'  , preferred_unit='kg', symbol='M' },
+   ['time'  ] = { name='time'  , preferred_unit='s' , symbol='T' },
 }
 
 
@@ -83,6 +90,8 @@ local new = function(value, symbol)
    return value
 end
 
+
+-- Creators for specific quantities
 
 for n, q in pairs(quantities) do
    local f = function(value, symbol)

@@ -54,6 +54,14 @@ function Test_base_quantities:test_can_create_mass_with_unit()
    assert_equals(l1.unit.symbol, 'kg')
 end
 
+function Test_base_quantities:test_can_create_time_with_unit()
+   local l1 = pq.new(10, 's')
+   assert_equals(l1.value, 10)
+   assert_equals(l1.quantity, 'time')
+   assert_equals(l1.unit.name, 'second')
+   assert_equals(l1.unit.symbol, 's')
+end
+
 
 --[[
 function Test_base_quantities:test_can_create_quantity_with_explicit_unit()
