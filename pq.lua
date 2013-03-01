@@ -59,8 +59,10 @@ local non_si_units =
 
 local units = 
 {
-   ['m'] = { name='metre', symbol='m' },
+   ['m'] =  { name='metre'   , symbol='m' , quantity='length' },
+   ['kg'] = { name='kilogram', symbol='kg', quantity='mass'   },
 }
+
 
 local length = function(value, symbol)
    local unit_symbol = symbol or 'm'
@@ -70,11 +72,31 @@ local length = function(value, symbol)
    end
    
    local value = { value=value, quantity='length', unit=unit }
+   if unit.quantity ~= value.quantity then
+      error(symbol .. ' is not a valid unit for ' .. quantity)
+   end
+      
+   return value
+end
+
+local mass = function(value, symbol)
+   local unit_symbol = symbol or 'kg'
+   local unit = units[unit_symbol]
+   if unit == nil then
+      error('Unknown unit ' .. symbol)
+   end
+   
+   local value = { value=value, quantity='mass', unit=unit }
+   if unit.quantity ~= value.quantity then
+      error(symbol .. ' is not a valid unit for ' .. quantity)
+   end
+      
    return value
 end
 
 
 M.length = length
+M.mass = mass
 
 return M
 

@@ -7,7 +7,7 @@ require('luaunit')
 
 Test_base_quantities = {}
 
-function Test_base_quantities:test_can_create_quantity_with_implied_unit()
+function Test_base_quantities:test_can_create_length_with_implied_unit()
    local l1 = pq.length(25)
    assert_equals(l1.value, 25)
    assert_equals(l1.quantity, 'length')
@@ -16,7 +16,7 @@ function Test_base_quantities:test_can_create_quantity_with_implied_unit()
 end
 
 
-function Test_base_quantities:test_can_create_quantity_with_explicit_unit()
+function Test_base_quantities:test_can_create_length_with_explicit_unit()
    local l1 = pq.length(21, 'm')
    assert_equals(l1.value, 21)
    assert_equals(l1.quantity, 'length')
@@ -24,8 +24,16 @@ function Test_base_quantities:test_can_create_quantity_with_explicit_unit()
    assert_equals(l1.unit.symbol, 'm')
 end
 
-function Test_base_quantities:test_cannot_create_quantity_with_incorrect_unit()
+function Test_base_quantities:test_cannot_create_length_with_incorrect_unit()
    assertError(pq.length, 21, 'kg')
+end
+
+function Test_base_quantities:test_can_create_mass_with_implied_unit()
+   local l1 = pq.mass(25)
+   assert_equals(l1.value, 25)
+   assert_equals(l1.quantity, 'mass')
+   assert_equals(l1.unit.name, 'kilogram')
+   assert_equals(l1.unit.symbol, 'kg')
 end
 
 
