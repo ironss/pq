@@ -71,6 +71,9 @@ local units =
    ['m']  = { name='metre'   , symbol='m' , quantity='length' },
    ['kg'] = { name='kilogram', symbol='kg', quantity='mass'   },
    ['s']  = { name='second'  , symbol='s',  quantity='time'   },
+
+   ['in']  = { name='inch'  , symbol='in',  quantity='length', linear={25.4, 0} },
+   ['"']   = { name='inch'  , symbol='"' ,  quantity='length', linear={25.4, 0} },
 }
 
 local quantities = 
@@ -88,10 +91,16 @@ local new = function(value, symbol)
       error('Unknown unit ' .. symbol)
    end
 
-   local quantity = quantities[unit.quantity]
-   local value = { value=value, quantity=unit.quantity, unit=unit }
+   -- Convert supplied value to value in preferred unit
+   local preferred_value = value
+   if unit.linear ~= nil then
+      preferred_value = value * unit.linear[1]
+   end
 
-   return value
+   local quantity = quantities[unit.quantity]
+   local t = { value=preferred_value, quantity=quantity, user_unit=unit, unit=units[quantity.preferred_unit] } -- quantity.preferred_unit, user_unit=unit }
+
+   return t
 end
 
 
@@ -100,16 +109,12 @@ end
 for n, q in pairs(quantities) do
    local f = function(value, symbol)
       local unit_symbol = symbol or q.preferred_unit
-      local unit = units[unit_symbol]
-      if unit == nil then
-         error('Unknown unit ' .. symbol)
-      end
-      
-      local value = { value=value, quantity=q.name, unit=unit }
-      if unit.quantity ~= value.quantity then
+      local pvalue = new(value, unit_symbol)
+
+      if pvalue.quantity.name ~= q.name then
          error(symbol .. ' is not a valid unit for ' .. q.name)
       end
-      return value
+      return pvalue
    end
    M[q.name] = f
 end
