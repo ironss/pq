@@ -74,6 +74,7 @@ local units =
 
    ['in']  = { name='inch'  , symbol='in',  quantity='length', linear={25.4, 0} },
    ['"']   = { name='inch'  , symbol='"' ,  quantity='length', linear={25.4, 0} },
+   ['px']  = { name='pixel',  symbol='px',  quantity='length', linear={1, 0} },
 }
 
 local quantities = 

@@ -99,6 +99,17 @@ function Test_base_quantities:test_cannot_create_quantity_with_unknown_unit()
 end
 
 
+function Test_base_quantities:test_can_create_length_in_pixels()
+   local l1 = pq.length(640, 'px')
+   assert_equals(l1.quantity.name, 'length')
+   assert_equals(l1.unit.name, 'metre')
+   assert_equals(l1.unit.symbol, 'm')
+   assert_equals(l1.value, 640)
+   assert_equals(l1.user_unit.name, 'pixel')
+   assert_equals(l1.user_unit.symbol, 'px')
+end
+
+
 --[[
 pq.format(L1) --
 pq.format(L1, 'm')
