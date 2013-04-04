@@ -80,6 +80,18 @@ function Test_base_quantities:test_can_create_quantity_with_non_preferred_length
    assert_equals(l1.unit.name, 'metre')
    assert_equals(l1.unit.symbol, 'm')
    assert_equals(l1.value, 254)
+   assert_equals(l1.user_unit.name, 'inch')
+   assert_equals(l1.user_unit.symbol, 'in')
+end
+
+function Test_base_quantities:test_can_create_quantity_with_other_non_preferred_length_unit()
+   local l1 = pq.new(10, '"')
+   assert_equals(l1.quantity.name, 'length')
+   assert_equals(l1.unit.name, 'metre')
+   assert_equals(l1.unit.symbol, 'm')
+   assert_equals(l1.value, 254)
+   assert_equals(l1.user_unit.name, 'inch')
+   assert_equals(l1.user_unit.symbol, '"')
 end
 
 function Test_base_quantities:test_cannot_create_quantity_with_unknown_unit()
