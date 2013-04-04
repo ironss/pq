@@ -32,9 +32,12 @@ function Test_base_quantities:test_can_create_length_with_non_preferred_unit()
    assert_equals(l1.value, 254)
 end
 
-
 function Test_base_quantities:test_cannot_create_length_with_incorrect_unit()
    assertError(pq.length, 21, 'kg')
+end
+
+function Test_base_quantities:test_cannot_create_length_with_unknown_unit()
+   assertError(pq.length, 21, 'qqq')
 end
 
 function Test_base_quantities:test_can_create_mass_with_implied_unit()
@@ -71,17 +74,16 @@ function Test_base_quantities:test_can_create_quantity_with_time_unit()
    assert_equals(l1.unit.symbol, 's')
 end
 
-function Test_base_quantities:test_cannot_create_quantity_with_unknown_unit()
-   assertError(pq.new, 10, 'qqq')
-end
-
-
-function Test_base_quantities:test_can_create_quantity_with_non_preferred_unit()
+function Test_base_quantities:test_can_create_quantity_with_non_preferred_length_unit()
    local l1 = pq.new(10, 'in')
    assert_equals(l1.quantity.name, 'length')
    assert_equals(l1.unit.name, 'metre')
    assert_equals(l1.unit.symbol, 'm')
    assert_equals(l1.value, 254)
+end
+
+function Test_base_quantities:test_cannot_create_quantity_with_unknown_unit()
+   assertError(pq.new, 10, 'qqq')
 end
 
 
