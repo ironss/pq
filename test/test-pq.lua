@@ -88,42 +88,12 @@ end
 
 
 --[[
-function Test_base_quantities:test_can_create_quantity_with_explicit_unit()
-   local l1 = pq.length(2000, 'mm')
-   assert_eq(l1.value, 2)
-   assert_eq(l1.quantity, 'length')
-   assert_eq(l1.unit.name, 'metre')
-   assert_eq(l1.unit.symbol, 'm')
-end
-
-function Test_base_quantities:test_can_create_quantity_with_non_si_unit()
-   local l1 = pq.length(100, 'in')
-   assert_close(l1.value, 2.540)
-   assert_eq(l1.quantity, 'length')
-   assert_eq(l1.unit.name, 'metre')
-   assert_eq(l1.unit.symbol, 'm')
-end
-
-function Test_base_quantities:test_can_create_quantity_with_non_si_unit()
-   local l1 = pq.length(100, 'in')
-   assert_close(l1.value, 2.540)
-   assert_eq(l1.quantity, 'length')
-   assert_eq(l1.unit.name, 'metre')
-   assert_eq(l1.unit.symbol, 'm')
-end
-
-
-
-
 pq.format(L1) --
 pq.format(L1, 'm')
 pq.format(L1, 'mm')
 pq.format(L1, 'in')
 pq.format(L1, 'ft')
 pq.format(L1, 'NM')
-
-
-
 --]]
 
 LuaUnit:run()
