@@ -98,7 +98,7 @@ local new = function(value, symbol)
    end
 
    local quantity = quantities[unit.quantity]
-   local t = { value=preferred_value, quantity=quantity, user_unit=unit, unit=units[quantity.preferred_unit] } -- quantity.preferred_unit, user_unit=unit }
+   local t = { value=preferred_value, quantity=quantity, user_unit=unit, unit=units[quantity.preferred_unit] }
 
    return t
 end
